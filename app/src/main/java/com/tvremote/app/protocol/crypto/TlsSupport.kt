@@ -69,11 +69,11 @@ object TlsSupport {
         val clientPub = clientCert.publicKey as RSAPublicKey
         val serverPub = serverCert.publicKey as RSAPublicKey
 
-        val md = MessageDigest.getInstance("SHA-256")
-        md.update(hexToBytes(evenHex(clientPub.modulus)))
-        md.update(hexToBytes(evenHex(clientPub.publicExponent)))
-        md.update(hexToBytes(evenHex(serverPub.modulus)))
-        md.update(hexToBytes(evenHex(serverPub.publicExponent)))
+                val md = MessageDigest.getInstance("SHA-256")
+        md.update(hexToBytes(evenHex(clientPub.modulus)) ?: return null)
+        md.update(hexToBytes(evenHex(clientPub.publicExponent)) ?: return null)
+        md.update(hexToBytes(evenHex(serverPub.modulus)) ?: return null)
+        md.update(hexToBytes(evenHex(serverPub.publicExponent)) ?: return null)
         md.update(hexToBytes(codeHex.substring(2)) ?: return null) // drop the code's first byte
         val hash = md.digest()
 
